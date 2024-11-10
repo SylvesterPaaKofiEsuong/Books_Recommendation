@@ -1,6 +1,9 @@
 Global Book Recommendation System
+
 Author: Sylvester Esuong
-Description: This project is a book recommendation app built using Streamlit and pandas. 
+
+Description: 
+This project is a book recommendation app built using Streamlit and pandas. 
 It uses natural language processing (NLP) techniques to recommend books based on cosine similarity of TF-IDF vectorized text data. 
 The app allows users to enter a book title and get personalized book recommendations based on similar books.
 
