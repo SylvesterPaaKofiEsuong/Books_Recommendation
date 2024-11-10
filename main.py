@@ -97,4 +97,4 @@ if st.button("🔍 Recommend Books"):
 
 # Footer
 st.markdown("<hr>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'>Made with ❤️ by [Your Name]</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>Made with ❤️ by Sylvester P.K Pro</p>", unsafe_allow_html=True)
