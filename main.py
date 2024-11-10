@@ -1,26 +1,14 @@
 import streamlit as st
 import pandas as pd
-import time
+import time  # Import time module
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
-import os
 
-# Download NLTK data files if not already present
-nltk_data_dir = os.path.join(os.getcwd(), 'nltk_data')
-if not os.path.exists(nltk_data_dir):
-    os.makedirs(nltk_data_dir)
-nltk.data.path.append(nltk_data_dir)
-try:
-    nltk.data.find('tokenizers/punkt')
-except LookupError:
-    nltk.download('punkt', download_dir=nltk_data_dir)
-try:
-    nltk.data.find('corpora/stopwords')
-except LookupError:
-    nltk.download('stopwords', download_dir=nltk_data_dir)
+nltk.download('punkt_tab')
+nltk.download('stopwords')
 
 # Load the data
 df = pd.read_csv('books_data.csv')
@@ -75,14 +63,14 @@ def recommend_similar_books(title, cosine_sim=cosine_sim):
 st.set_page_config(page_title="Book Recommender", page_icon="📚", layout="wide")
 
 # App Title and Header
-st.markdown("<h1 style='text-align: center; color: #4B0082;'>📚 Fiction Book Recommendation System 📚</h1>",
+st.markdown("<h1 style='text-align: center; color: #4B0082;'>📚 Fiction Book Recommendation System</h1>",
             unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #808080;'>Find your next great read based on books you love!</p>",
             unsafe_allow_html=True)
 st.divider()
 
 # Book Title Input
-st.markdown("### 📖 Enter a book title to get recommendations:")
+st.markdown("### Enter a book title to get recommendations:")
 title = st.text_input("")
 
 # Recommendation Button
@@ -109,4 +97,4 @@ if st.button("🔍 Recommend Books"):
 
 # Footer
 st.markdown("<hr>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'>Made with ❤️ by Sylvester P.K Pro</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>Made with ❤️ by [Your Name]</p>", unsafe_allow_html=True)
