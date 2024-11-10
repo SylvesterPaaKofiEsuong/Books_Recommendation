@@ -63,7 +63,7 @@ def recommend_similar_books(title, cosine_sim=cosine_sim):
 st.set_page_config(page_title="Book Recommender", page_icon="📚", layout="wide")
 
 # App Title
-st.title("Fintech Book Recommendation System")
+st.title("Global Book Recommendation System")
 
 # Book Title Input
 title = st.text_input("Enter a book title to get recommendations:")
