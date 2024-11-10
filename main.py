@@ -83,17 +83,18 @@ if st.button("🔍 Recommend Books"):
             if recommendations:
                 st.markdown("### 📚 Recommended Books")
                 for book in recommendations:
-                    st.markdown(f"""
-                        <div style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
-                            <h4 style="color: #0000FF;">{book['title']}</h4>
-                            <p><strong>Author:</strong> {book['author']}</p>
-                            <p><strong>Average Rating:</strong> ⭐ {book['rating']}</p>
-                        </div>
-                    """, unsafe_allow_html=True)
+                    if isinstance(book, dict) and 'title' in book:
+                        st.markdown(f"""
+                            <div style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+                                <h4 style="color: #0000FF;">{book['title']}</h4>
+                                <p><strong>Author:</strong> {book.get('author', 'Unknown')}</p>
+                                <p><strong>Average Rating:</strong> ⭐ {book.get('rating', 'N/A')}</p>
+                            </div>
+                        """, unsafe_allow_html=True)
+                    else:
+                        st.write("Unexpected data format in recommendations.")
             else:
                 st.warning("No recommendations found. Try a different title.")
-    else:
-        st.warning("Please enter a title.")
 
 # Footer
 st.markdown("<hr>", unsafe_allow_html=True)
