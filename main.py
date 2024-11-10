@@ -65,7 +65,7 @@ st.set_page_config(page_title="Book Recommender", page_icon="📚", layout="wide
 # App Title and Header
 st.markdown("<h1 style='text-align: center; color: #0000FF;'>📚 Fiction Book Recommendation System</h1>",
             unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #808080;'>Find your next great read based on books you love!</p>",
+st.markdown("<p style='text-align: center; color: #0000FF;'>Find your next great read based on books you love!</p>",
             unsafe_allow_html=True)
 st.divider()
 
@@ -85,7 +85,7 @@ if st.button("🔍 Recommend Books"):
                 for book in recommendations:
                     st.markdown(f"""
                         <div style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
-                            <h4 style="color: #4B0082;">{book['title']}</h4>
+                            <h4 style="color: #0000FF;">{book['title']}</h4>
                             <p><strong>Author:</strong> {book['author']}</p>
                             <p><strong>Average Rating:</strong> ⭐ {book['rating']}</p>
                         </div>
