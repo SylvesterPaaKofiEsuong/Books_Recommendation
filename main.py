@@ -71,7 +71,7 @@ title = st.text_input("Enter a book title to get recommendations:")
 # Recommend Button and Display Results with Spinner
 if st.button("Recommend"):
     if title:
-        with st.spinner('recommending...'):
+        with st.spinner('Find recommendation...'):
             time.sleep(2)  # Adds a delay to ensure spinner visibility
             recommendations = recommend_similar_books(title)
 
