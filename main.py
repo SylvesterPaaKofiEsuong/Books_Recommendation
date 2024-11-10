@@ -65,7 +65,7 @@ st.set_page_config(page_title="Book Recommender", page_icon="📚", layout="wide
 # App Title and Header
 st.markdown("<h1 style='text-align: center; color: #0000FF;'>📚 Fiction Book Recommendation System</h1>",
             unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #0000FF;'>Find your next great read based on books you love!</p>",
+st.markdown("<p style='text-align: center; color: #FF0000;'>Find your next great read based on books you love!</p>",
             unsafe_allow_html=True)
 st.divider()
 
