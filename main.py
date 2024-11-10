@@ -7,7 +7,7 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 
-nltk.download('punkt')
+nltk.download('punkt_tab')
 nltk.download('stopwords')
 
 # Load the data
@@ -71,7 +71,7 @@ title = st.text_input("Enter a book title to get recommendations:")
 # Recommend Button and Display Results with Spinner
 if st.button("Recommend"):
     if title:
-        with st.spinner('recommendating...'):
+        with st.spinner('recommending...'):
             time.sleep(2)  # Adds a delay to ensure spinner visibility
             recommendations = recommend_similar_books(title)
 
