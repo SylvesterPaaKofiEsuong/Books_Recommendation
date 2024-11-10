@@ -1,14 +1,26 @@
 import streamlit as st
 import pandas as pd
-import time  # Import time module
+import time
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
+import os
 
-nltk.download('punkt_tab')
-nltk.download('stopwords')
+# Download NLTK data files if not already present
+nltk_data_dir = os.path.join(os.getcwd(), 'nltk_data')
+if not os.path.exists(nltk_data_dir):
+    os.makedirs(nltk_data_dir)
+nltk.data.path.append(nltk_data_dir)
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt', download_dir=nltk_data_dir)
+try:
+    nltk.data.find('corpora/stopwords')
+except LookupError:
+    nltk.download('stopwords', download_dir=nltk_data_dir)
 
 # Load the data
 df = pd.read_csv('books_data.csv')
@@ -24,7 +36,7 @@ def preprocess_text(text):
     return ' '.join(words)
 
 
-# Apply preprocessing to the 'plot' or 'description' column (if you have one, for example 'plot')
+# Preprocess text for recommendation
 df['Preprocessed_Plot'] = df['authors'].apply(preprocess_text)
 
 # Create TF-IDF matrix
@@ -35,7 +47,7 @@ tfidf_matrix = tfidf.fit_transform(df['Preprocessed_Plot'])
 cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
 
 
-# Recommendation function with additional details
+# Recommendation function
 def recommend_similar_books(title, cosine_sim=cosine_sim):
     if title not in df['title'].values:
         return ["Book title not found. Please try another title."]
@@ -62,27 +74,39 @@ def recommend_similar_books(title, cosine_sim=cosine_sim):
 # Streamlit App Configuration
 st.set_page_config(page_title="Book Recommender", page_icon="📚", layout="wide")
 
-# App Title
-st.title("Global Book Recommendation System")
+# App Title and Header
+st.markdown("<h1 style='text-align: center; color: #4B0082;'>📚 Fiction Book Recommendation System 📚</h1>",
+            unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #808080;'>Find your next great read based on books you love!</p>",
+            unsafe_allow_html=True)
+st.divider()
 
 # Book Title Input
-title = st.text_input("Enter a book title to get recommendations:")
+st.markdown("### 📖 Enter a book title to get recommendations:")
+title = st.text_input("")
 
-# Recommend Button and Display Results with Spinner
-if st.button("Recommend"):
+# Recommendation Button
+if st.button("🔍 Recommend Books"):
     if title:
-        with st.spinner('Finding recommendation...'):
-            time.sleep(2)  # Adds a delay to ensure spinner visibility
+        with st.spinner('Finding recommendations...'):
+            time.sleep(1)
             recommendations = recommend_similar_books(title)
 
             if recommendations:
-                st.write("### Recommended Books:")
+                st.markdown("### 📚 Recommended Books")
                 for book in recommendations:
-                    st.write(f"**Title**: {book['title']}")
-                    st.write(f"**Author(s)**: {book['author']}")
-                    st.write(f"**Average Rating**: {book['rating']}")
-                    st.write("___")  # Adding a horizontal line to separate recommendations
+                    st.markdown(f"""
+                        <div style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+                            <h4 style="color: #4B0082;">{book['title']}</h4>
+                            <p><strong>Author:</strong> {book['author']}</p>
+                            <p><strong>Average Rating:</strong> ⭐ {book['rating']}</p>
+                        </div>
+                    """, unsafe_allow_html=True)
             else:
-                st.write("No recommendations found. Try a different title.")
+                st.warning("No recommendations found. Try a different title.")
     else:
-        st.write("Please enter a title.")
+        st.warning("Please enter a title.")
+
+# Footer
+st.markdown("<hr>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>Made with ❤️ by Sylvester P.K Pro</p>", unsafe_allow_html=True)
